@@ -21,14 +21,7 @@ dashboard = true
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-#domain = "mydomain.com"
+domain = "lokal.hatnem.de"
 watch = true
 exposedByDefault = true
 
-[acme]
-#email = "some@email.com"
-storage = "acme.json"
-entryPoint = "https"
-onHostRule = true
-[acme.httpChallenge]
-entryPoint = "http"
