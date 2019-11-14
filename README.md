@@ -67,3 +67,14 @@ printf $(docker logs traefik|sed -n '2 {s/^.*loaded//;s/"$//;p}')|jq .
 # print only entrypoint related conf
 printf $(docker logs traefik|sed -n '2 {s/^.*loaded//;s/"$//;p}')|jq '{EntryPoints:.EntryPoints,DefaultEntryPoints:.DefaultEntryPoints}'
 ```
+
+## Json-server
+For something more "useful" run a mock json rest api with admin ui:
+
+```
+docker run -d \
+  --name mock \
+  --network=traefik \
+  -p 3000 \
+  lalyos/json-server
+```
