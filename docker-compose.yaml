@@ -7,7 +7,6 @@ services:
     labels:
       - "traefik.frontend.rule=Host:traefik.XXXXXXX"
       - "traefik.port=8080"
-      - "traefik.frontend.auth.basic=xxxxxxxxxx"
     ports:
       - 80:80
       - 443:443
