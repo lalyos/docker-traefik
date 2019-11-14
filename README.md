@@ -37,10 +37,10 @@ docker run -d \
 
 ```
 # list all docker front/backends
-curl -s http://traefik.lokal.hatnem.de/api | jq '.docker'
+curl -s http://traefik.docker.localhost/api | jq '.docker'
 
 # list all rules
-curl -s http://traefik.lokal.hatnem.de/api | jq '.. | .rule? | select(type != "null")'
+curl -s http://traefik.docker.localhost/api | jq '.. | .rule? | select(type != "null")'
 ```
 
 ## Troubleshoot
