@@ -39,15 +39,14 @@ hint: `admin/secret`
 
 ## Automatic HTTPS - by Letsencrypt
 
+Use the `docker-compose-acme.yaml` version:
 ```
-docker run -d \
-  --name mock \
-  --network=traefik \
-  -p 3000 \
-  lalyos/json-server
+export EMAIL=your@email.com
+export DOMAIN=your.domain.com
+docker-compose --file docker-compose-acme.yaml up -d
 ```
 
-## api
+## Traefik Api
 
 ```
 # list all docker front/backends
