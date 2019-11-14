@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:1.7-alpine
+    container_name: traefik
+    restart: always
+    labels:
+      - "traefik.frontend.rule=Host:traefik.${DOMAIN:-docker.localhost}"
+      - "traefik.port=8080"
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - acme:/etc/acme
+      - ./traefik.toml:/traefik.toml
+
+networks:
+  default:
+    external:
+      name: traefik
+volumes: 
+  acme:
