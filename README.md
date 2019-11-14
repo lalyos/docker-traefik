@@ -14,16 +14,30 @@ docker-compose up -d
 
 ## test 
 
-```
-docker run -d --network=traefik --name web -p 80 nginx
-```
-
 If Dockerfile defines EXPOSE you can omit port
 ```
 docker run -d --network=traefik --name web nginx
 ```
 
-or run a mock json rest api with admin ui:
+```
+docker run -d --network=traefik --name lunch --env=TITLE=Lunchtime -p 80 lalyos/lunch-wto
+```
+## Basic Auth
+
+Adding basic auth is implemented by the `traefik.frontend.auth.basic` label:
+```
+docker run -d \
+  --network=traefik \
+  --name secret \
+  --env=TITLE=TOP-Secret \
+  --env=COLOR=coral \
+  --label 'traefik.frontend.auth.basic=admin:$1$I5Kt8BwT$G4y6mBV3xVzyZKUECxqV61' \
+    lalyos/lunch-wto
+```
+
+hint: `admin/secret`
+
+## Automatic HTTPS - by Letsencrypt
 
 ```
 docker run -d \
