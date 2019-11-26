@@ -8,6 +8,7 @@ services:
     command: 
       - --retry
       #- --debug
+      - --rest
       - --docker.domain=${DOMAIN:-docker.localhost}
       - --api.dashboard
     labels:
