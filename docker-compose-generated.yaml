@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:1.7-alpine
+    container_name: traefik
+    restart: always
+    command:
+      - --retry
+      #- --debug
+      - --rest
+      #- --docker.domain=${DOMAIN:-lvh.me}
+      - --docker.domain=${DOMAIN:-localtest.me}
+      - --docker.network=traefik
+      - --api.dashboard
+    labels:
+      - "traefik.frontend.rule=Host:traefik.${DOMAIN:-localtest.me}"
+      - "traefik.port=8080"
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  www:
+    image: nginx:alpine
+    ports:
+    - 80
+    volumes:
+        - www:/usr/share/nginx/html
+    labels:
+      - "traefik.frontend.rule=Host:www.${DOMAIN:-localtest.me}"
+
+  generator:
+    image: lalyos/alpine-tools
+    volumes:
+        - www:/html
+        - ./generate.sh:/generate.sh
+    command: /generate.sh
+
+volumes:
+  www:
+
+networks:
+  default:
+    name: traefik

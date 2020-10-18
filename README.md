@@ -12,7 +12,7 @@ docker network create traefik
 docker-compose up -d
 ```
 
-## test 
+## test
 
 If Dockerfile defines EXPOSE you can omit port
 ```
@@ -37,6 +37,18 @@ docker run -d \
 
 hint: `admin/secret`
 
+## Generated dashboard
+
+Its a shame that the Dashboard provided by Traefik doesn't
+contains clickable html links to open up the forntend rules.
+
+I've create a simple generator [script](generatror.sh) which
+is viable at: [www.localtest.me](http://www.localtest.me/)
+
+```
+docker-compose -f docker-compose-generated.yaml up -d
+```
+
 ## Automatic HTTPS - by Letsencrypt
 
 Use the `docker-compose-acme.yaml` version:
@@ -50,10 +62,10 @@ docker-compose --file docker-compose-acme.yaml up -d
 
 ```
 # list all docker front/backends
-curl -s http://traefik.docker.localhost/api | jq '.docker'
+curl -s http://traefik.localtest.me/api | jq '.docker'
 
 # list all rules
-curl -s http://traefik.docker.localhost/api | jq '.. | .rule? | select(type != "null")'
+curl -s http://traefik.localtest.me/api | jq '.. | .rule? | select(type != "null")'
 ```
 
 ## Troubleshoot
