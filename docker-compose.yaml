@@ -5,14 +5,16 @@ services:
     image: traefik:1.7-alpine
     container_name: traefik
     restart: always
-    command: 
+    command:
       - --retry
       #- --debug
       - --rest
-      - --docker.domain=${DOMAIN:-docker.localhost}
+      #- --docker.domain=${DOMAIN:-lvh.me}
+      - --docker.domain=${DOMAIN:-localtest.me}
+      - --docker.network=traefik
       - --api.dashboard
     labels:
-      - "traefik.frontend.rule=Host:traefik.${DOMAIN:-docker.localhost}"
+      - "traefik.frontend.rule=Host:traefik.${DOMAIN:-localtest.me}"
       - "traefik.port=8080"
     ports:
       - 80:80
