@@ -37,6 +37,15 @@ docker run -d \
 
 hint: `admin/secret`
 
+**NOTE**
+In `docker-compose.yaml` dollars sign should be escaped as '$$' (see [docs](https://docs.docker.com/compose/compose-file/compose-file-v2/#variable-substitution) )
+
+```
+...
+      - "traefik.frontend.auth.basic=admin:$$1$$I5Kt8BwT$$G4y6mBV3xVzyZKUECxqV61"
+...
+```
+
 ## Generated dashboard
 
 Its a shame that the Dashboard provided by Traefik doesn't
